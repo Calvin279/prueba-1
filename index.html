@@ -1,0 +1,90 @@
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro Compartido de Horas de Servicio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.5/xlsx.full.min.js"></script>
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-database-compat.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>
+                <i class="fas fa-clock"></i> 
+                Registro Compartido de Horas de Servicio
+            </h1>
+            
+            <form id="serviceForm" class="modern-form">
+                <div class="input-group">
+                    <input type="text" id="nameInput" placeholder="Nombre Completo" required>
+                    <input type="text" id="rangeInput" placeholder="Rango/Puesto" required>
+                    <input type="date" id="dateInput" required>
+                    <button type="submit">
+                        <i class="fas fa-play"></i> Iniciar Registro
+                    </button>
+                </div>
+            </form>
+
+            <div id="notification" class="notification"></div>
+        </header>
+
+        <main>
+            <div class="toggle-table-container">
+                <button id="toggleServiceTableBtn" class="toggle-table-btn">
+                    <i class="fas fa-eye"></i> Mostrar Registros de Horas
+                </button>
+                <button id="exportExcelBtn" class="toggle-table-btn" style="margin-left: 10px;">
+                    <i class="fas fa-file-excel"></i> Exportar a Excel
+                </button>
+            </div>
+
+            <section id="serviceTableSection" class="table-section" style="display: none;">
+                <div class="section-header">
+                    <h2>Registros de Horas</h2>
+                    <div class="search-container">
+                        <i class="fas fa-search"></i>
+                        <input type="text" id="searchInput" placeholder="Buscar por nombre">
+                    </div>
+                </div>
+                <div class="table-wrapper">
+                    <table id="serviceTable">
+                        <thead>
+                            <tr>
+                                <th>Nombre</th>
+                                <th>Rango</th>
+                                <th>Fecha</th>
+                                <th>Inicio</th>
+                                <th>Fin</th>
+                                <th>Duración</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="serviceTableBody"></tbody>
+                    </table>
+                </div>
+            </section>
+
+            <section class="table-section">
+                <h2>Resumen Semanal</h2>
+                <div class="table-wrapper">
+                    <table id="weeklySummaryTable">
+                        <thead>
+                            <tr>
+                                <th>Nombre</th>
+                                <th>Horas Trabajadas</th>
+                                <th>Estado</th>
+                            </tr>
+                        </thead>
+                        <tbody id="weeklySummaryTableBody"></tbody>
+                    </table>
+                </div>
+            </section>
+        </main>
+    </div>
+    <script type="module" src="app.js"></script>
+</body>
+</html>
